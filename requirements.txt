@@ -1,42 +1,4 @@
-absl-py==2.1.0
-astunparse==1.6.3
-blinker @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_d64vvpf_j3/croot/blinker_1696539070114/work
-certifi==2024.7.4
-charset-normalizer==3.3.2
-click @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_61srkg7e2e/croot/click_1698129815327/work
-Flask @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_b6zka5i2cn/croot/flask_1716545886197/work
-flatbuffers==24.3.25
-gast==0.6.0
-google-pasta==0.2.0
-grpcio==1.65.5
-h5py==3.11.0
-idna==3.7
-itsdangerous @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_00jdi1gu23/croot/itsdangerous_1716533346702/work
-Jinja2 @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_44yzu12j7f/croot/jinja2_1716993410427/work
-keras==3.5.0
-libclang==18.1.1
-Markdown==3.7
-markdown-it-py==3.0.0
-MarkupSafe @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_a84ni4pci8/croot/markupsafe_1704206002077/work
-mdurl==0.1.2
-ml-dtypes==0.4.0
-namex==0.0.8
-numpy==1.26.4
-opencv-python==4.10.0.84
-opt-einsum==3.3.0
-optree==0.12.1
-packaging==24.1
-protobuf==4.25.4
-Pygments==2.18.0
-requests==2.32.3
-rich==13.7.1
-six==1.16.0
-tensorboard==2.17.1
-tensorboard-data-server==0.7.2
+Flask==3.0.3
+numpy==2.1.0
+opencv_python==4.10.0.84
 tensorflow==2.17.0
-tensorflow-io-gcs-filesystem==0.37.1
-termcolor==2.4.0
-typing_extensions==4.12.2
-urllib3==2.2.2
-Werkzeug @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_5bnbxlhunm/croot/werkzeug_1716533322814/work
-wrapt==1.16.0
