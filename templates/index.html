@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Data</title>
+</head>
+<body>
+    <h1>Upload Data</h1>
+    <form action="/" method="POST" enctype="multipart/form-data">
+        <label for="weight">Weight:</label><br>
+        <input type="text" id="weight" name="weight" required><br><br>
+        
+        <label for="height">Height:</label><br>
+        <input type="text" id="height" name="height" required><br><br>
+        
+        <label for="age">Age:</label><br>
+        <input type="text" id="age" name="age" required><br><br>
+        
+        <label for="file">Upload Image:</label><br>
+        <input type="file" id="file" name="file" required><br><br>
+        
+        <input type="submit" value="Upload">
+    </form>
+
+    {% if result_label %}
+    <h2>Prediction Result: {{ result_label }}</h2>
+    {% endif %}
+</body>
+</html>
