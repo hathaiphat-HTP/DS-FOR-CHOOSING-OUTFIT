@@ -1,30 +1,422 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Data</title>
+    <title>DECISION SUPPORT FOR CHOOSING THE RIGHT PERSONALIZED OUTFIT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> <!-- ลิงก์ไปยังไฟล์ CSS -->
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </head>
-<body>
-    <h1>Upload Data</h1>
-    <form action="/" method="POST" enctype="multipart/form-data">
-        <label for="weight">Weight:</label><br>
-        <input type="text" id="weight" name="weight" required><br><br>
-        
-        <label for="height">Height:</label><br>
-        <input type="text" id="height" name="height" required><br><br>
-        
-        <label for="age">Age:</label><br>
-        <input type="text" id="age" name="age" required><br><br>
-        
-        <label for="file">Upload Image:</label><br>
-        <input type="file" id="file" name="file" required><br><br>
-        
-        <input type="submit" value="Upload">
-    </form>
 
-    {% if result_label %}
-    <h2>Prediction Result: {{ result_label }}</h2>
-    {% endif %}
+<body>
+    <div class="container-fluid">
+        <div class="row full-height ">
+            <!-- Left column -->
+            <div class="col-md-2" style="padding-left:20px; padding-top:20px;">
+                <p class="font-head multi-shadow-text" style="padding-bottom: 20px;">
+                    DECISION SUPPORT FOR<br>
+                    CHOOSING THE RIGHT<br>
+                    PERSONALIZED OUTFIT<br>
+                </p>
+                <form id="predictionForm" action="/" method="POST" enctype="multipart/form-data">
+                    <label for="weight">WEIGHT :</label><br>
+                    <input type="text" id="weight" name="weight" required> KG<br><br>
+
+                    <label for="height">HEIGHT :</label><br>
+                    <input type="text" id="height" name="height" required> CM<br><br>
+
+                    <label for="age">AGE :</label><br>
+                    <input type="text" id="age" name="age" required> YEAR<br><br>
+
+                    <label for="file">UPLOAD PHOTO :</label><br><br>
+                    <input type="file" id="file" name="file" required><br><br><br>
+                
+                    <input type="submit" value="PREDICT">
+                </form>
+            </div>
+
+            <!-- Middle column -->
+            <div class="col-md-6 column-border-left">
+                <h4 class="text-center multi-shadow-text">What is My Body shape ?</h4>
+                <img src="{{ result_image }}" alt="Body Shape Result" class="result-image mb-4">
+
+                <!-- แสดงรูป และคำอธิบาย -->
+                {% if result_label %}
+                <div class="row description-head" style="padding-left:30px;">
+                    <h3 class="multi-shadow-text">Body shape is : {{ result_label }}</h3>
+                    <p>
+                        {% if result_label == 'Apple' %}
+                        รูปร่างแบบแอปเปิ้ลเป็นลักษณะที่มีความโดดเด่นบริเวณช่วงบนของร่างกาย
+                        โดยเฉพาะเมื่อเปรียบเทียบกับช่วงล่าง
+                        บุคคลที่มีรูปร่างลักษณะนี้มักจะมีไหล่ที่กว้างและหน้าอกที่มีขนาดใหญ่กว่าสะโพก
+                        น้ำหนักส่วนใหญ่จะกระจุกตัวอยู่บริเวณหน้าท้อง ทำให้บริเวณนั้นมีความโดดเด่นเป็นพิเศษ
+
+                        {% elif result_label == 'Pear' %}
+                        รูปร่างแบบลูกแพร์เป็นรูปร่างที่สะโพกและต้นขาใหญ่กว่าช่วงบนของร่างกาย
+                        รูปร่างแบบนี้เป็นรูปร่างที่ได้รับความนิยมมากในปัจจุบัน เนื่องจากมีส่วนโค้งเว้าที่สวยงาม
+
+                        {% elif result_label == 'Hourglass' %}
+                        รูปร่างประเภทนี้ถือว่าเป็นรูปร่างที่สมดุลที่สุดในบรรดาประเภทรูปร่างทั้งหมด
+                        ด้วยความสมส่วนระหว่างช่วงบนและช่วงล่างของร่างกาย พร้อมกับเอวที่คอดชัดเจน
+                        ทำให้หุ่นนาฬิกาทรายโดดเด่นและเป็นที่ชื่นชม
+                        การเลือกชุดเดรสสำหรับรูปร่างนี้ควรคำนึงถึงการเสริมสร้างจุดเด่นของร่างกายที่สมดุลอยู่แล้ว
+                        เพื่อเพิ่มความสวยงามและความมั่นใจ รูปร่างแบบนาฬิกาทรายเป็นที่ต้องการของหลายคน -
+                        ขนาดสะโพกและหน้าอกเกือบเท่ากัน
+
+                        {% elif result_label == 'Rectangle' %}
+                        รูปร่างแบบสี่เหลี่ยมผืนผ้าเป็นรูปร่างที่ช่วงบนและช่วงล่างของร่างกายมีความกว้างเท่ากัน
+                        รูปร่างแบบนี้ไม่มีส่วนโค้งเว้ามากนัก ทำให้ดูเรียบง่าย หากคุณมีรูปร่างแบบสี่เหลี่ยมผืนผ้า
+                        คุณสามารถเน้นช่วงไหล่และสะโพกเพื่อให้รูปร่างดูมีมิติมากขึ้น
+                        {% endif %}
+                    </p>
+                </div>
+
+                <div class="row icon-container">
+                    {% if result_label == 'Apple' %}
+                    <div class="icon-row">
+                        <div class="icon-container">
+                            <img src="{{ url_for('static', filename='shoulders.png') }}" alt="ไหล่">
+                            <span>
+                                <h6 style="color: grey;">ไหล่ :</h6>ปานกลาง
+                            </span>
+                        </div>
+                        <div class="icon-container">
+                            <img src="{{ url_for('static', filename='waist.png') }}" alt="เอว">
+                            <span>
+                                <h6 style="color: grey;">เอว :</h6>ไม่ชัดเจน
+                            </span>
+                        </div>
+                        <div class="icon-container">
+                            <img src="{{ url_for('static', filename='hips.png') }}" alt="สะโพก">
+                            <span>
+                                <h6 style="color: grey;">สะโพก :</h6>แคบ
+                            </span>
+                        </div>
+                        <!-- ขึ้นบรรทัดใหม่ -->
+                        <div class="w-100"></div>
+                        <div class="icon-container">
+                            <img src="{{ url_for('static', filename='overall.png') }}" alt="โดยรวม">
+                            <span>
+                                <h6 style="color: grey;">โดยรวม :</h6>น้ำหนักกระจายส่วนบนมากกว่าส่วนล่าง
+                            </span>
+                        </div>
+                        <div class="icon-container">
+                            <img src="{{ url_for('static', filename='proportion.png') }}" alt="อัตราส่วน">
+                            <span>
+                                <h6 style="color: grey;">อัตราส่วน :</h6>รอบเอวใหญ่กว่ารอบสะโพกและไหล่
+                            </span>
+                        </div>
+                    </div>
+                    {% elif result_label == 'Pear' %}
+                    <div class="icon-row">
+                        <div class="icon-container">
+                            <img src="{{ url_for('static', filename='shoulders.png') }}" alt="ไหล่">
+                            <span>
+                                <h6 style="color: grey;">ไหล่ :</h6>แคบ
+                            </span>
+                        </div>
+                        <div class="icon-container">
+                            <img src="{{ url_for('static', filename='waist.png') }}" alt="เอว">
+                            <span>
+                                <h6 style="color: grey;">เอว :</h6>ไม่ชัดเจน
+                            </span>
+                        </div>
+                        <div class="icon-container">
+                            <img src="{{ url_for('static', filename='hips.png') }}" alt="สะโพก">
+                            <span>
+                                <h6 style="color: grey;">สะโพก :</h6>กว้าง
+                            </span>
+                        </div>
+                        <!-- ขึ้นบรรทัดใหม่ -->
+                        <div class="w-100"></div>
+                        <div class="icon-container">
+                            <img src="{{ url_for('static', filename='overall.png') }}" alt="โดยรวม">
+                            <span>
+                                <h6 style="color: grey;">โดยรวม :</h6>น้ำหนักกระจายส่วนล่างมากกว่าส่วนบน
+                            </span>
+                        </div>
+                        <div class="icon-container">
+                            <img src="{{ url_for('static', filename='proportion.png') }}" alt="อัตราส่วน">
+                            <span>
+                                <h6 style="color: grey;">อัตราส่วน :</h6>สะโพกใหญ่กว่าไหล่และเอว
+                            </span>
+                        </div>
+                    </div>
+                    {% elif result_label == 'Hourglass' %}
+                    <div class="icon-row">
+                        <div class="icon-container">
+                            <img src="{{ url_for('static', filename='shoulders.png') }}" alt="ไหล่">
+                            <span>
+                                <h6 style="color: grey;">ไหล่ :</h6>ปานกลาง
+                            </span>
+                        </div>
+                        <div class="icon-container">
+                            <img src="{{ url_for('static', filename='waist.png') }}" alt="เอว">
+                            <span>
+                                <h6 style="color: grey;">เอว :</h6>ชัดเจน
+                            </span>
+                        </div>
+                        <div class="icon-container">
+                            <img src="{{ url_for('static', filename='hips.png') }}" alt="สะโพก">
+                            <span>
+                                <h6 style="color: grey;">สะโพก :</h6>ปานกลาง
+                            </span>
+                        </div>
+                        <!-- ขึ้นบรรทัดใหม่ -->
+                        <div class="w-100"></div>
+                        <div class="icon-container">
+                            <img src="{{ url_for('static', filename='overall.png') }}" alt="โดยรวม">
+                            <span>
+                                <h6 style="color: grey;">โดยรวม :</h6>น้ำหนักกระจายอย่างสม่ำเสมอ
+                            </span>
+                        </div>
+                        <div class="icon-container">
+                            <img src="{{ url_for('static', filename='proportion.png') }}" alt="อัตราส่วน">
+                            <span>
+                                <h6 style="color: grey;">อัตราส่วน :</h6>ไหล่มีความกว้างพอดีกับสะโพก แต่กว้างกว่าเอว
+                            </span>
+                        </div>
+                    </div>
+                    {% elif result_label == 'Rectangle' %}
+                    <div class="icon-row">
+                        <div class="icon-container">
+                            <img src="{{ url_for('static', filename='shoulders.png') }}" alt="ไหล่">
+                            <span>
+                                <h6 style="color: grey;">ไหล่ :</h6>ปานกลาง
+                            </span>
+                        </div>
+                        <div class="icon-container">
+                            <img src="{{ url_for('static', filename='waist.png') }}" alt="เอว">
+                            <span>
+                                <h6 style="color: grey;">เอว :</h6>ตรง
+                            </span>
+                        </div>
+                        <div class="icon-container">
+                            <img src="{{ url_for('static', filename='hips.png') }}" alt="สะโพก">
+                            <span>
+                                <h6 style="color: grey;">สะโพก :</h6>ปานกลาง
+                            </span>
+                        </div>
+                        <!-- ขึ้นบรรทัดใหม่ -->
+                        <div class="w-100"></div>
+                        <div class="icon-container">
+                            <img src="{{ url_for('static', filename='overall.png') }}" alt="โดยรวม">
+                            <span>
+                                <h6 style="color: grey;">โดยรวม :</h6>ตรง
+                            </span>
+                        </div>
+                        <div class="icon-container">
+                            <img src="{{ url_for('static', filename='proportion.png') }}" alt="อัตราส่วน">
+                            <span>
+                                <h6 style="color: grey;">อัตราส่วน :</h6>ไหล่เท่ากับสะโพกเท่ากับเอว
+                            </span>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Right column -->
+            <div class="col-md-4 column-scrollable" style=" background-color: #ffffff;">
+                <!--แถบเมนูด้านบน-->
+                <div class="tab-menu" style="border-left: 1px solid rgb(180, 179, 179)">
+                    <button id="recommendTab" class="tab-link active multi-shadow-text"
+                        onclick="changeTab('recommend')">RECOMMEND</button>
+                    <button id="clothesTab" class="tab-link multi-shadow-text"
+                        onclick="changeTab('clothes')">CLOTHES</button>
+                </div>
+                <!-- ข้อมูลหน้า Recommend-->
+                <div id="recommendContent"class="border-recommend">
+                    <div class="content">
+                        <ul class="main-list">
+                            {% if result_label == 'Apple' %}
+                            <li class="description-head center-text" style="font-size: 20px;">
+                                <strong><img src="{{url_for('static', filename='correct.png')}}" alt="Correct"
+                                        class="icon-size"></strong>
+                                เคล็ดลับการแต่งตัว
+                            </li>
+                            <ul class="font-recommemd">
+                                <li>เลือกสวมใส่เสื้อผ้าที่พอดีกับตัวและไม่รัดแน่นจนเกินไป</li>
+                                <li>หลีกเลี่ยงเสื้อผ้าที่รัดที่เอวหรือสะโพก</li>
+                                <li>เลือกสวมใส่เสื้อผ้าที่มีสีเข้มหรือลายพิมพ์เล็กๆ ที่บริเวณหน้าท้อง</li>
+                                <li>สวมใส่เสื้อคอวี เสื้อคลุมยาว เสื้อเอวสูง และกางเกงทรงตรง</li>
+                                <li>โชว์เรียวขาสวยๆ ด้วยการสวมใส่กระโปรงหรือกางเกงขาสั้น</li>
+                                <li>คุณยังสามารถเล่นกับเครื่องประดับ เช่น สร้อยคอและต่างหู
+                                    สิ่งที่สำคัญที่สุดคือการดึงดูดความสนใจไปที่ใบหน้าหรือที่ขาหากคุณมีขาที่สวยงาม</li>
+                                <li>เสื้อผ้าที่ดีที่สุดสำหรับรูปร่างแบบแอปเปิ้ลคือเสื้อทรงเอ
+                                    สวมใส่ชุดเดรสลายพิมพ์หรือแจ็คเก็ตที่มีลวดลายเพื่อเพิ่มเลเยอร์และเบี่ยงเบนความสนใจ
+                                    ลุคแบบโมโนโครม, สีเข้ม, ชุดเดรสแขนยาว เสื้อท่อนบนพลิ้วไหวจะช่วยได้
+                                    คุณยังสามารถใส่กางเกงทรงบาน</li>
+                            </ul>
+                            <br>
+                            <li class="description-head center-text" style="font-size: 20px;">
+                                <strong><img src="{{url_for('static', filename='incorrect.png')}}" alt="incorrect"
+                                        class="icon-size"></strong>
+                                เสื้อผ้าที่ควรหลีกเลี่ยง
+                            </li>
+                            <ul class="font-recommemd">
+                                <li>หลีกเลี่ยงการสวมใส่ชุดเดรสหรือเสื้อรัดรูปกับกางเกงยีนส์ทรงสกินนี่
+                                    เพราะจะทำให้หน้าท้องดูเด่นชัดขึ้น
+                                    ควรใช้เข็มขัดคาดเอวสูงแทนเข็มขัดปกติเพื่อสร้างความสมดุล</li>
+                            </ul>
+                            {% elif result_label == 'Pear' %}
+                            <li class="description-head center-text" style="font-size: 20px;">
+                                <strong><img src="{{url_for('static', filename='correct.png')}}" alt="Correct"
+                                        class="icon-size"></strong>
+                                เคล็ดลับการแต่งตัว
+                            </li>
+                            <ul class="font-recommemd">
+                                <li>เลือกใส่เสื้อผ้าที่พอดีกับสะโพกและต้นขา
+                                    และหลีกเลี่ยงกางเกงที่รัดแน่นเกินไปหรือหลวมเกินไป</li>
+                                <li>สวมใส่กางเกงทรงกระบอก กางเกงทรงบาน กางเกงทรงเอ หรือกางเกงทรงพาลาซโซ</li>
+                                <li>สวมใส่เสื้อผ้าที่เน้นส่วนบนของร่างกาย เช่น เสื้อคอวี เสื้อที่มีดีเทลที่ไหล่</li>
+                                <li>ใช้เข็มขัดคาดเอวเพื่อเน้นเอว</li>
+                                <li>หลีกเลี่ยงการใส่เสื้อผ้าที่พองใหญ่มากเกินไปบริเวณหน้าอก
+                                    เนื่องจากจะทำให้ช่วงบนของร่างกายดูใหญ่ขึ้น</li>
+                                <li>สวมใส่รองเท้าส้นสูงเพื่อช่วยยืดขากให้ดูยาวขึ้น</li>
+                            </ul>
+                            <br>
+                            <li class="description-head center-text" style="font-size: 20px;">
+                                <strong><img src="{{url_for('static', filename='incorrect.png')}}" alt="incorrect"
+                                        class="icon-size"></strong>
+                                เสื้อผ้าที่ควรหลีกเลี่ยง
+                            </li>
+                            <ul class="font-recommemd">
+                                <li>ควรหลีกเลี่ยงการสวมใส่เสื้อรัดรูป คอวี และกางเกงทรงหลวม</li>
+                            </ul>
+                            {% elif result_label == 'Hourglass' %}
+                            <li class="description-head center-text" style="font-size: 20px;">
+                                <strong><img src="{{url_for('static', filename='correct.png')}}" alt="Correct"
+                                        class="icon-size"></strong>
+                                เคล็ดลับการแต่งตัว
+                            </li>
+                            <ul class="font-recommemd">
+                                <li>เลือกสวมใส่เสื้อผ้าที่พอดีกับตัวและเน้นเอวของคุณ</li>
+                                <li>สวมใส่ชุดเดรสทรงเอ หรือชุดเดรสทรงเพรียว</li>
+                                <li>ใช้เข็มขัดคาดเอวเพื่อเน้นเอวของคุณ</li>
+                                <li>สวมใส่กระโปรงทรงพลีท หรือกระโปรงทรงสอบเพื่อโชว์เรียวขาสวยๆ</li>
+                                <li>หลีกเลี่ยงการสวมใส่เสื้อผ้าที่รัดแน่นเกินไปหรือหลวมเกินไป</li>
+                            </ul>
+                            <br>
+                            <li class="description-head center-text" style="font-size: 20px;">
+                                <strong><img src="{{url_for('static', filename='incorrect.png')}}" alt="Incorrect"
+                                        class="icon-size"></strong>
+                                เสื้อผ้าที่ควรหลีกเลี่ยง
+                            </li>
+                            <ul class="font-recommemd">
+                                <li>การใส่เสื้อหรือกางเกงทรงหลวมๆ อาจทำให้รูปร่างดูกลมตันและไม่สมส่วน</li>
+                            </ul>
+                            {% elif result_label == 'Rectangle' %}
+                            <li class="description-head center-text" style="font-size: 20px;">
+                                <strong><img src="{{url_for('static', filename='correct.png')}}" alt="Correct"
+                                        class="icon-size"></strong>
+                                เคล็ดลับการแต่งตัว
+                            </li>
+                            <ul class="font-recommemd">
+                                <li>เลือกใส่เสื้อผ้าที่เน้นช่วงไหล่และสะโพก เช่น เสื้อคอวี เสื้อที่มีดีเทลที่ไหล่
+                                    หรือกางเกงทรงเอ</li>
+                                <li>หลีกเลี่ยงการสวมใส่เสื้อผ้าที่รัดรูปเกินไปหรือหลวมเกินไป</li>
+                                <li>ใส่เข็มขัดคาดเอวเพื่อเน้นเอว</li>
+                                <li>สวมใส่เสื้อผ้าที่มีลวดลายหรือสีสันเพื่อดึงดูดความสนใจไปที่ส่วนไหล่และสะโพก</li>
+                            </ul>
+                            <br>
+                            <li class="description-head center-text" style="font-size: 20px;">
+                                <strong><img src="{{url_for('static', filename='incorrect.png')}}" alt="Incorrect"
+                                        class="icon-size"></strong>
+                                เสื้อผ้าที่ควรหลีกเลี่ยง
+                            </li>
+                            <ul class="font-recommemd">
+                                <li>ควรหลีกเลี่ยงการสวมใส่ชุดเดรสที่หลวมเกินไป
+                                    เนื่องจากจะทำให้รูปร่างของคุณดูตันและดูไม่ดี </li>
+                            </ul>
+                            {% endif %}
+                        </ul>
+                    </div>
+
+                </div>
+                <!-- ข้อมูลหน้า clothes-->
+                <div id="clothesContent"style="display:none;border-left: 1px solid rgb(180, 179, 179);">
+                    <!-- เนื้อหาสำหรับ Clothes -->
+                    <div class="row">
+                        {% if result_label == 'Apple' %}
+                        <div class="column">
+                            <img src="{{url_for('static', filename='/Apple_Shape/Apple1.jpg')}}" >
+                            <img src="{{url_for('static', filename='/Apple_Shape/Apple2.jpg')}}" >
+                            <img src="{{url_for('static', filename='/Apple_Shape/Apple3.jpg')}}" >
+                        </div>
+                        <div class="column">
+                            <img src="{{url_for('static', filename='/Apple_Shape/Apple4.jpg')}}" >
+                            <img src="{{url_for('static', filename='/Apple_Shape/Apple5.jpg')}}" >
+                            <img src="{{url_for('static', filename='/Apple_Shape/Apple6.jpg')}}" > 
+                        </div>
+                        {% elif result_label == 'Pear' %}
+                        <div class="column">
+                            <img src="{{url_for('static', filename='/Pear_Shape/Pear1.jpg')}}" >
+                            <img src="{{url_for('static', filename='/Pear_Shape/Pear2.jpg')}}" >
+                            <img src="{{url_for('static', filename='/Pear_Shape/Pear3.jpg')}}" >
+                        </div>
+                        <div class="column">
+                            <img src="{{url_for('static', filename='/Pear_Shape/Pear4.jpg')}}" >
+                            <img src="{{url_for('static', filename='/Pear_Shape/Pear5.jpg')}}" >
+                            <img src="{{url_for('static', filename='/Pear_Shape/Pear6.jpg')}}" > 
+                        </div>
+                        {% elif result_label == 'Hourglass' %}
+                        <div class="column">
+                            <img src="{{url_for('static', filename='/Hourglass_Shape/Hourglass1.jpg')}}" >
+                            <img src="{{url_for('static', filename='/Hourglass_Shape/Hourglass2.jpg')}}" >
+                            <img src="{{url_for('static', filename='/Hourglass_Shape/Hourglass3.jpg')}}" >
+                        </div>
+                        <div class="column">
+                            <img src="{{url_for('static', filename='/Hourglass_Shape/Hourglass4.jpg')}}" >
+                            <img src="{{url_for('static', filename='/Hourglass_Shape/Hourglass5.jpg')}}" >
+                            <img src="{{url_for('static', filename='/Hourglass_Shape/Hourglass6.jpg')}}" > 
+                        </div>
+                        {% elif result_label == 'Rectangle' %}
+                        <div class="column">
+                            <img src="{{url_for('static', filename='/Rectangle_Shape/Rectangle1.jpg')}}" >
+                            <img src="{{url_for('static', filename='/Rectangle_Shape/Rectangle2.jpg')}}" >
+                            <img src="{{url_for('static', filename='/Rectangle_Shape/Rectangle3.jpg')}}" >
+                        </div>
+                        <div class="column">
+                            <img src="{{url_for('static', filename='/Rectangle_Shape/Rectangle4.jpg')}}" >
+                            <img src="{{url_for('static', filename='/Rectangle_Shape/Rectangle5.jpg')}}" >
+                            <img src="{{url_for('static', filename='/Rectangle_Shape/Rectangle6.jpg')}}" > 
+                        </div>
+                        {% endif %}
+                    </div>
+                    <script>
+                        function changeTab(tab) {
+                            // ซ่อนเนื้อหาทั้งหมด
+                            document.getElementById('recommendContent').style.display = 'none';
+                            document.getElementById('clothesContent').style.display = 'none';
+                            // ลบคลาส active จากแท็บทั้งหมด
+                            document.getElementById('recommendTab').classList.remove('active');
+                            document.getElementById('clothesTab').classList.remove('active');
+
+                            // แสดงเนื้อหาและเพิ่มคลาส active ขึ้นอยู่กับเลือกแท็บไหน
+                            if (tab === 'recommend') {
+                                document.getElementById('recommendContent').style.display = 'block';
+                                document.getElementById('recommendTab').classList.add('active');
+                                document.getElementById('clothesTab').style.backgroundColor = "#f1f1f1"; // สีเทา
+                                document.getElementById('recommendTab').style.backgroundColor = "#ffffff"; // สีเขียว
+                            } else if (tab === 'clothes') {
+                                document.getElementById('clothesContent').style.display = 'block';
+                                document.getElementById('clothesTab').classList.add('active');
+                                document.getElementById('recommendTab').style.backgroundColor = "#f1f1f1"; // สีเทา
+                                document.getElementById('clothesTab').style.backgroundColor = "#ffffff"; // สีเขียว
+                            }
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
 </body>
+
 </html>

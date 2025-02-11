@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect ,url_for
 from datetime import datetime
 import os
 
@@ -21,7 +21,10 @@ if not os.path.exists(app.config['UPLOAD_FOLDER']):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    # ตั้งค่าเริ่มต้นทุกครั้งที่ฟังก์ชันถูกเรียกใช้งาน
     result_label = None
+    result_image = url_for('static', filename='default.jpg')  # ตั้งค่า default.jpg ทุกครั้งที่โหลดหน้าเว็บ
+
     if request.method == 'POST':
         # รับข้อมูลจากฟอร์ม
         weight = request.form['weight']
@@ -46,11 +49,11 @@ def index():
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(filepath)
             
-            # pre processing data
+            # ทำการประมวลผลข้อมูลก่อนที่จะส่งไปยังโมเดล โดยใช้ฟังก์ชัน pre_processing
             data_attributes, data_image = pre_processing(weight, height, age, filepath)
             print(data_attributes, data_image)
 
-            # predict model
+            # ใช้โมเดล Deep Learning เพื่อทำนายรูปทรงของร่างกาย โดยส่งข้อมูลที่ประมวลผลแล้วเข้าไปในโมเดล
             result = MODEL.predict([data_attributes, data_image])
             print(result)
             # Get the predicted class
@@ -60,27 +63,44 @@ def index():
             # print(f"Predicted Class Index: {result_index}")
             print(f"Predicted Class Label: {result_label}")
 
+            # ตรวจสอบเงื่อนไขตามผลลัพธ์ที่ได้จากโมเดล และแสดงรูปภาพที่เหมาะสม
+            if result_label == 'Apple':
+               result_image = url_for('static', filename='apple.jpg')
+            elif result_label == 'Pear':
+                result_image = url_for('static', filename='pear.jpg')
+            elif result_label == 'Hourglass':
+                result_image = url_for('static', filename='hourglass.jpg')
+            elif result_label == 'Rectangle':
+                result_image = url_for('static', filename='rectangle.jpg')
+            else:
+                result_image = url_for('static', filename='default.jpg') #รูปภาพเริ่มต้นกรณีที่ไม่มีเงื่อนไขตรงกัน
+
             # delete images
             os.remove(filepath)
-    
-    return render_template('index.html', result_label=result_label)
+            
+    # คืนค่า result_label และ result_image ไปยังหน้าเว็บ
+    return render_template('index.html', result_label=result_label, result_image=result_image)
+
 
 
 def pre_processing(weight, height, age, image_path):
     # โหลดรูปภาพจากเส้นทาง, แปลงขนาดเป็น 256x256 และแปลงเป็นภาพขาวดำ
 
-    # Load the image
+    # โหลดรูปภาพจากไฟล์
     image = cv2.imread(image_path)
-    # Resize to 256x256
+    # ปรับขนาดของรูปภาพเป็น 256x256 พิกเซล
     image_resized = cv2.resize(image, (256, 256))
 
-    # # Convert to grayscale
+    # แปลงรูปภาพเป็นภาพขาวดำ grayscale
     image_gray = cv2.cvtColor(image_resized, cv2.COLOR_BGR2GRAY)
 
+    # สร้างอาร์เรย์ที่เก็บข้อมูลอายุ น้ำหนัก และส่วนสูงที่ได้รับจากฟอร์ม และจัดรูปแบบให้เหมาะสมสำหรับการส่งให้โมเดล
     data_attributes = np.array([age, weight, height], dtype=np.float32).reshape(1, -1)
     data_image = np.array(image_gray, dtype=np.float32).reshape(1, 256, 256, 1)
 
     return data_attributes, data_image
 
+
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

@@ -1,0 +1,223 @@
+@media (max-width: 768px) {
+
+    input[type="text"],
+    input[type="number"],
+    input[type="file"] {
+        width: 100%;/* เต็มความกว้างของ container เมื่อหน้าจอเล็กลง */
+    }
+
+    .icon-container {
+        width: 100%;
+    }
+}
+
+@font-face {
+    font-family: 'Felix Titling';/* ชื่อที่ใช้เรียกฟอนต์ใน CSS */
+    src: url('./Felixti.TTF') format('truetype');/* ที่ตั้งและรูปแบบของไฟล์ฟอนต์ */
+
+    font-family: 'Kanit-Thin';/* ชื่อที่ใช้เรียกฟอนต์ใน CSS */
+    src: url('./Kanit-Thin.ttf') format('truetype'); /* ที่ตั้งและรูปแบบของไฟล์ฟอนต์ */
+
+    font-family: 'Kanit-Regular';/* ชื่อที่ใช้เรียกฟอนต์ใน CSS */
+    src: url('./Kanit-Regular.ttf') format('truetype');/* ที่ตั้งและรูปแบบของไฟล์ฟอนต์ */
+
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+form {
+    font-size: 14px;
+    font-family: 'Felix Titling', serif;
+}
+
+h4 {
+    font-family: 'Felix Titling', serif;
+    color: black;
+}
+
+span,
+h6 {
+    font-family: 'Kanit-Regular';
+}
+
+input[type="text"] {
+    margin-left: 5px;
+    margin-top: 3px;/* ตั้งระยะห่างที่ด้านบนของ input */
+    padding: 8px;/* ตั้งค่า padding เพื่อให้มีความสบายในการพิมพ์ */
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.1);/* เงาสำหรับปุ่ม */
+    border: 1px solid #ccc;
+    width: 70%;/* หรือค่าอื่นๆ ตามที่คุณต้องการ */
+}
+
+input[type="submit"] {
+    font-family: 'Felix Titling', serif;
+    background-color: #55d559;/* สีพื้นหลังของปุ่ม */
+    color: white;/* สีข้อความบนปุ่ม */
+    padding: center;/* ระยะห่างภายในปุ่ม */
+    cursor: pointer;/* แปลงเมาส์เป็นรูปมือเมื่อโฮเวอร์ */
+    font-size: 16px; /* ขนาดตัวอักษรของข้อความบนปุ่ม */
+    border: none;/* ไม่มีเส้นขอบ */
+    width: 70%;
+    height: 40px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);/* เงาสำหรับปุ่ม */
+}
+
+/* สไตล์เมื่อโฮเวอร์ปุ่ม */
+input[type="submit"]:hover {
+    background-color: #45a049;/* สีพื้นหลังของปุ่มเมื่อโฮเวอร์ */
+}
+
+.full-height {
+    height: 100vh;/* ความสูงเต็มหน้าจอ */
+    min-height: 100vh;/* กำหนดความสูงขั้นต่ำเท่ากับหน้าจอ */
+}
+
+.result-image {
+    max-height: 350px;/* ล็อกความสูงไม่ให้เกิน 300px */
+    height: auto;/* ให้ความสูงปรับตามอัตราส่วนของรูปภาพ (หากความสูงไม่เกิน 200px) */
+    object-fit: contain;/*ทำให้รูปภาพอยู่ในขอบเขตของ max-height */
+    width: 100%;/* Ensures the image is full width */
+    margin-top: 0 !important;/* Overrides any existing top margin */
+    padding-top: 0 !important;/* Overrides any existing top padding */
+}
+
+.font-head {
+    font-family: 'Felix Titling', serif;
+    color: black;
+    font-size: 18px;
+}
+
+.multi-shadow-text {
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8),/* สีขาวเบาๆ */
+        2px 2px 4px rgba(109, 109, 109, 0.5);/* สีดำเงามากกว่า */
+}
+
+.description-head {
+    width: 100%;
+    font-family: 'Kanit-Regular';
+}
+
+.center-text {
+    text-align: center;
+    justify-content: center;
+}
+
+.column-border-left {
+    padding-top: 20px;
+    border-left: 1px solid rgb(180, 179, 179);/* Thick blue border on the left */
+}
+
+.icon-image {
+    max-height: 30px;/* ล็อกความสูงไม่ให้เกิน 30px */
+    height: auto;/* ให้ความสูงปรับตามอัตราส่วนของรูปภาพ*/
+    object-fit: contain;/*ทำให้รูปภาพอยู่ในขอบเขตของ max-height */
+    width: 100%;/* กำหนดให้ความกว้างของข้อความเต็มคอลัมน์ */
+}
+
+.icon-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;/* ปรับการจัดเรียงและระยะห่างตามต้องการ */
+    align-items: center;/* จัดให้องค์ประกอบอยู่กึ่งกลางแนวตั้ง */
+}
+
+.icon-container {
+    font-family: 'Felix Titling', serif;
+    display: flex;
+    align-items: center;/* ให้องค์ประกอบอยู่กึ่งกลางแนวตั้ง */
+    flex-direction: row;/* รูปภาพและข้อความจัดเรียงแนวนอน */
+    margin: 10px;/* จัดระยะห่างตามต้องการ */
+}
+
+.icon-container img {
+    width: 50px;/* ปรับขนาดรูปภาพตามต้องการ */
+    height: 50px;
+    color: #000;
+    margin-right: 10px; /* ระยะห่างระหว่างรูปภาพและข้อความ */
+}
+
+.column-border-right {
+    border-left: 1px solid rgb(180, 179, 179);
+    height: 100%;
+}
+
+.tab-menu {
+    font-family: 'Felix Titling', serif;
+    display: flex;
+    background-color: #ffffff;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.tab-link {
+    flex-grow: 1;
+    text-align: center;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    background-color: #ffffff;
+    color: #000;
+}
+
+.tab-link.active {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+}
+
+.font-recommemd {
+    font-family: 'Kanit-Regular', serif;
+    color: black;
+    font-size: 16px;
+}
+.border-recommend{
+    border-left: 1px solid rgb(180, 179, 179);
+    height: 100%;
+}
+
+.icon-size {
+    width: 30px;/* กำหนดความกว้าง */
+    height: 30px;/* กำหนดความสูง */
+}
+
+.main-list {
+    list-style-type: none;/* ลบเครื่องหมายของรายการ */
+    padding: 20px;
+}
+
+.main-list>li {
+    font-weight: bold;/* ตั้งค่าตัวหนาสำหรับหัวข้อหลัก */
+    margin-bottom: 10px;/* ระยะห่างระหว่างหัวข้อหลักและย่อย */
+}
+
+.main-list li ul {
+    list-style-type: disc;/* ตั้งค่าเครื่องหมายวงกลมสำหรับรายการย่อย */
+    padding-left: 20px;/* ระยะห่างจากขอบซ้าย */
+    margin-top: 5px;/* ระยะห่างจากหัวข้อหลัก */
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 4px;
+}
+.column {
+    flex: 50%;
+    display: flex;
+    flex-direction: column;  /* Align images vertically */
+}
+.column img {
+    margin: 20px;/* จัดระยะห่างตามต้องการ */
+    max-width: 200px;
+    max-height: 250px;
+    width: 100%; /* ให้ความกว้างเต็ม */
+    height: auto; /* ให้ความสูงปรับตามอัตราส่วนของรูปภาพ */
+    object-fit: cover; /* ครอบคลุมพื้นที่โดยไม่เปลี่ยนอัตราส่วน */
+    display: block; /* ให้รูปภาพไม่มีช่องว่างหรือขอบเว้น */
+    box-shadow: 0 4px 16px rgba(83, 77, 77, 0.1); /* เพิ่มเงา */
+}
+.column-scrollable {
+    height: 100vh;  /* หรือความสูงอื่นๆ ที่ต้องการ */
+    overflow-y: auto;  /* อนุญาตให้เลื่อนขึ้นลง */
+}
